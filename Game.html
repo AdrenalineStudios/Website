@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODM Styled Menu</title>
+    <style>
+        /* Fullscreen Background Video */
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Overlay with Play Button */
+        #overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        #play-button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            color: #7daaff;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Game Menu Styles */
+        #game-menu {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 20px; /* Offset from the left for cascading look */
+            z-index: 2;
+        }
+
+        #side-menu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            color: #7daaff; /* Light blue to match the reference */
+            font-size: 1.5em;
+        }
+
+        #side-menu ul li {
+            margin-top: 20px; /* Spacing between items */
+            transform: translateX(calc(10px * var(--i))); /* Cascading effect */
+            transition: transform 0.3s ease, color 0.3s ease;
+            color: #7daaff; /* Initial color */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        #side-menu ul li a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            padding: 5px;
+            transition: color 0.3s;
+        }
+
+        #side-menu ul li:hover a {
+            color: #ffffff; /* White on hover */
+        }
+
+        /* Staggered Fade-In Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(calc(10px * var(--i))); }
+        }
+
+        /* Apply Fade-in Effect */
+        #game-menu.visible #side-menu ul li {
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+            animation-delay: calc(0.1s * var(--i));
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <video autoplay loop muted id="background-video">
+        <source src="vid/showcase_s.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Overlay with Play Button -->
+    <div id="overlay">
+        <button id="play-button" onclick="openMenu()">PLAY</button>
+    </div>
+
+    <!-- Game Menu with Cascading Style -->
+    <div id="game-menu" class="visible">
+        <nav id="side-menu">
+            <ul>
+                <li style="--i: 1;"><a href="#models">\ Models \</a></li>
+                <li style="--i: 2;"><a href="#motor">  \ Motor \</a></li>
+                <li style="--i: 3;"><a href="#history">    \ History \</a></li>
+                <li style="--i: 4;"><a href="#shop">      \ Shop \</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <script>
+        function openMenu() {
+            // Show the game menu and hide the overlay
+            document.getElementById("game-menu").style.display = "block";
+            document.getElementById("overlay").style.display = "none";
+        }
+    </script>
+</body>
+</html>
